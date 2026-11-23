@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mengurai faktor di balik angka kekerasan">
+  <meta name="application-name" content="RuangAman">
+  <link rel="icon" type="image/png" href="assets/ruangaman-mark.png">
+  <meta name="theme-color" content="#f4f7f6"><title>RuangAman</title>
+  <link rel="stylesheet" href="assets/leaflet.css"><link rel="stylesheet" href="styles.css">
+  <script defer src="assets/leaflet.js"></script><script type="module" src="app.js"></script>
+</head>
+<body>
+<svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+<symbol id="i-map" viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Zm6-3v15m6-12v15"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 9v12M3 15h18"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 3v17h17M9 15v-4m5 4V7m5 8V4"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6l-8-3Z"/><path d="m8 12 3 3 5-6"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 5 7 7-7 7"/></symbol>
+</defs></svg>
+<a class="skip-link" href="#main">Lewati ke konten</a>
+<header class="app-header">
+  <a class="page-title" href="#main" aria-label="RuangAman, ke halaman utama"><img src="assets/ruangaman-mark.png" alt="" width="64" height="64"><div><h1>RuangAman</h1><span>Mengurai faktor di balik angka kekerasan</span></div><span id="coverage-label" hidden>Indonesia · 38 provinsi</span></a>
+  <div class="header-actions"><button class="outline-button" id="download" aria-label="Unduh data"><svg class="icon"><use href="#i-download"/></svg><span>Unduh data</span></button></div>
+</header>
+<main id="main">
+  <section class="explorer" aria-label="Eksplorasi prediksi provinsi">
+    <div class="map-card">
+      <div class="map-toolbar">
+        <div class="segmented" aria-label="Jenis kekerasan"><button class="selected" data-category="sexual" aria-pressed="true">Seksual</button><button data-category="nonsexual" aria-pressed="false">Nonseksual</button></div>
+        <div class="search-wrap"><svg class="icon"><use href="#i-search"/></svg><input id="search" type="search" placeholder="Cari provinsi" aria-label="Cari provinsi" aria-controls="search-results" autocomplete="off"><div id="search-results" class="search-results" hidden></div></div>
+        <label class="island-filter"><select id="island" aria-label="Filter pulau"><option value="all">Semua pulau</option><option>Sumatera</option><option>Jawa</option><option>Bali & Nusa Tenggara</option><option>Kalimantan</option><option>Sulawesi</option><option>Maluku</option><option>Papua</option></select></label>
+        <label class="year-control"><span>Prediksi</span><select id="year" aria-label="Tahun prediksi"><option>2026</option></select></label>
+      </div>
+      <div class="map-stage" id="map-stage"><div id="map" role="region" aria-label="Peta interaktif provinsi Indonesia"></div><div class="map-top-note"><span id="map-category">Kekerasan seksual</span><span id="map-context">Memuat prediksi provinsi</span></div><div class="map-controls"><button id="zoom-in" aria-label="Perbesar peta">+</button><button id="zoom-out" aria-label="Perkecil peta">−</button><button id="reset-map" aria-label="Tampilkan seluruh Indonesia"><svg class="icon"><use href="#i-target"/></svg></button></div><div class="map-error" id="map-error" role="alert" hidden></div><div class="map-hint"><span class="hint-desktop">Scroll untuk zoom. Pilih provinsi untuk melihat detail.</span><span class="hint-touch">Cubit dengan dua jari untuk zoom. Ketuk provinsi untuk detail.</span></div></div>
+      <div class="map-footer"><div class="legend" aria-label="Filter tingkat risiko"><span class="legend-title">Tingkat risiko</span><button data-risk="low"><span class="risk-dot low"></span>Rendah <span class="legend-count" id="low-count">—</span></button><button data-risk="moderate"><span class="risk-dot moderate"></span>Sedang <span class="legend-count" id="moderate-count">—</span></button><button data-risk="high"><span class="risk-dot high"></span>Tinggi <span class="legend-count" id="high-count">—</span></button><button data-risk="unavailable"><span class="risk-dot unavailable"></span>Belum dipetakan <span class="legend-count" id="unavailable-count">—</span></button></div><button class="text-button" id="clear-filters" hidden>Hapus filter</button></div>
+    </div>
+    <aside class="detail-card" aria-label="Detail provinsi"><div class="detail-topline"><span>Detail provinsi</span><svg class="icon"><use href="#i-pin"/></svg></div><h2 id="province-name">Jawa Barat</h2><p class="province-meta" id="province-meta">Jawa</p><div class="prediction-heading"><h3>Prediksi risiko</h3><span class="year-badge" id="detail-year">—</span></div><div id="prediction-cards"></div><section class="indicator-section" aria-labelledby="indicator-heading"><div class="explanation-heading"><h3 id="indicator-heading">Indikator provinsi</h3><select id="explanation-method" aria-label="Metode penjelasan" hidden><option value="shap">SHAP</option><option value="lime">LIME</option></select></div><p class="explanation-subtitle" id="explanation-subtitle">Memuat indikator</p><div id="prediction-comparison"></div><div id="explanation-chart"></div><div id="other-indicators"></div><p id="explanation-note" class="explanation-note"></p><div id="feature-definitions"></div></section></aside>
+  </section>
+</main>
+<div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
+</body>
+</html>
